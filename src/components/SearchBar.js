@@ -6,16 +6,19 @@ class SearchBar extends React.Component {
     this.state = { term: '' }
   }
 
-  onInputChange(term) {
-    this.setState({term});
-    this.props.onTermChange(term)
+  onKeyPress = (target) => {
+    if (target.charCode === 13) {
+      const term = this.refs.gifInput.value;
+
+      this.setState({term});
+      this.props.onTermChange(term)
+    }
   }
 
   render() {
     return(
       <div className="search">
-        <input placeholder="Enter text to search for gifs!"
-               onChange={event => this.onInputChange(event.target.value)} />
+        <input placeholder="Enter text to search for gifs!" ref="gifInput" onKeyPress={this.onKeyPress}/>
       </div>
     );
   }
